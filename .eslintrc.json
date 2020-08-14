@@ -1,0 +1,65 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "plugins": [
+    "import",
+    "node",
+    "promise",
+    "sonarjs"
+  ],
+  "settings": {
+    "import/resolver": "webpack"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:sonarjs/recommended",
+    "plugin:promise/recommended",
+    "plugin:node/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-process-env": [ "error" ],
+    "node/no-unsupported-features/es-syntax": "off",
+    "node/no-unpublished-require": "off",
+    "node/no-unpublished-import": "off",
+    "no-unused-vars": [ "warn" ],
+    "semi": ["error", "always"],
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "require-await": ["error"],
+    "arrow-parens": [
+      "error",
+      "as-needed",
+      {
+        "requireForBlockBody": false
+      }
+    ],
+    "camelcase": [
+      "error",
+      {
+        "properties": "always"
+      }
+    ],
+    "func-style": [
+      "error",
+      "declaration",
+      {
+        "allowArrowFunctions": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "perfect-boilerplate-node",
+  "version": "1.2.0",
+  "description": "Template for create your nodejs backend app in one minute",
+  "private": true,
+  "checkFiles": "./src/ ./tests/ app.js config.js",
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "start": "webpack --config webpack.dev.js",
+    "lint": "eslint $npm_package_checkFiles --fix",
+    "prettier": "prettier $npm_package_checkFiles --write",
+    "updep": "rm -rf package-lock.json yarn.lock npm-shrinkwrap.json && yarn && yarn upgrade && npm i",
+    "test": "DOTENV_CONFIG_PATH=./.env.test mocha",
+    "dockerBuild": "docker build -t $npm_package_dockerLogin/$npm_package_name:$npm_package_version .",
+    "dockerPush": "docker push $npm_package_dockerLogin/$npm_package_name:$npm_package_version"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "eslint $npm_package_checkFiles --fix && prettier $npm_package_checkFiles --write"
+    }
+  },
+  "author": "WeslyG",
+  "dockerLogin": "weslyg",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "html-table-to-json": "^1.0.0",
+    "mongoose": "^5.9.16",
+    "node-html-parser": "^1.2.20"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/register": "^7.10.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "core-js": "^3.6.5",
+    "dotenv": "^8.2.0",
+    "dotenv-webpack": "^2.0.0",
+    "eslint": "^7.6.0",
+    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "husky": "^4.2.5",
+    "mocha": "^8.1.0",
+    "mongo-unit": "^2.0.1",
+    "nodemon-webpack-plugin": "^4.3.2",
+    "prettier": "^2.0.5",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "engines": {
+    "node": "^12.16.0",
+    "npm": "^6.14.0",
+    "yarn": "^1.22.0"
+  }
+}
