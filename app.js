@@ -1,190 +1,57 @@
 import { parse } from 'node-html-parser';
-// import HtmlTableToJson from 'html-table-to-json';
+import { parserPage } from './src/parse';
 import fs from 'fs';
+import { getLinks, generageUrls, request } from './src/network';
 
-const readFile = async path => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf8', (err, data) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(data);
-    });
-  });
-};
-
-const resultData = [];
-// const resultData[resultData.length-1].trialsList = [];
-
-const tellMeTrue = stringForTrue => stringForTrue.toLowerCase() === 'да' ? true : false;
+const lenAlphabet = 33;
+export const INDEX_NAME = 'students';
+//   const htmlData = await readFile('./docs.html');
 
 const main = async () => {
-  const data = await readFile('./docs.html');
-  const parsingdata = parse(data);
-  const a = parsingdata.firstChild.childNodes;
-
-  for (let item = 0, len = a.length; item < len; item++) {
-    let alias = a[item].childNodes;
-    if (alias[4].text.toLowerCase() === 'да' || alias[4].text.toLowerCase() === 'нет') {
-      if (alias.length === 12) {
-        resultData.push({
-          name: alias[0].text,
-          sex: 'M',
-          num: parseInt(alias[1].text),
-          trialsList: [
-            {
-              status: alias[2].text,
-              type: alias[3].text,
-              access: tellMeTrue(alias[4].text),
-              direction: alias[5].text,
-              programName: alias[6].text,
-              form: alias[7].text,
-              money: alias[8].text,
-              trials: [alias[9].text],
-              summ: alias[11].text,
-            },
-          ],
+  const linksList = generageUrls(lenAlphabet);
+  const parsedLinks = await getLinks(linksList);
+  const promiseArr = [];
+  for (let i = 0,len = parsedLinks.length; i < len; i++ ) {
+    promiseArr.push(new Promise((resolve, reject) => {
+      request(parsedLinks[i])
+        .then(res => {
+          console.log(`Thread ${i} complete`);
+          const data = parse(res);
+          const parsingData = data.firstChild.childNodes;
+          resolve(parserPage(parsingData));
+          return true;
+        })
+        .catch(err => {
+          reject(err);
         });
-        continue;
-      } else if (alias.length === 13) {
-        resultData.push({
-          name: alias[0].text,
-          sex: 'M',
-          num: parseInt(alias[1].text),
-          trialsList: [
-            {
-              status: alias[2].text,
-              type: alias[3].text,
-              access: tellMeTrue(alias[4].text),
-              direction: alias[5].text,
-              programName: alias[6].text,
-              form: alias[7].text,
-              money: alias[8].text,
-              trials: [alias[9].text, alias[10].text],
-              summ: alias[12].text,
-            },
-          ],
-        });
-        continue;
-      } else if (alias.length === 14) {
-        resultData.push({
-          name: alias[0].text,
-          sex: 'M',
-          num: parseInt(alias[1].text),
-          trialsList: [
-            {
-              status: alias[2].text,
-              type: alias[3].text,
-              access: tellMeTrue(alias[4].text),
-              direction: alias[5].text,
-              programName: alias[6].text,
-              form: alias[7].text,
-              money: alias[8].text,
-              trials: [alias[9].text, alias[10].text, alias[11].text],
-              summ: alias[13].text,
-            },
-          ],
-        });
-        continue;
-      }
-    } 
-    else if (alias[2].text.toLowerCase() === 'да' || alias[2].text.toLowerCase() === 'нет') {
-      if (alias.length === 12) {
-        resultData[resultData.length-1].trialsList.push({
-          status: alias[0].text,
-          type: alias[1].text,
-          access: tellMeTrue(alias[2].text),
-          direction: alias[3].text,
-          programName: alias[4].text,
-          form: alias[5].text,
-          money: alias[6].text,
-          trials: [alias[7].text, alias[8].text, alias[9].text],
-          summ: alias[11].text,
-        });
-        continue;
-      } else if (alias.length === 11) {
-        if (!(alias[6].text === 'контрактная основа' || alias[6].text === 'бюджетная основа')) {
-          resultData[resultData.length-1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            programName: alias[4].text,
-            form: alias[5].text,
-            money: resultData[resultData.length-1].trialsList[resultData[resultData.length-1].trialsList.length -1].money,
-            trials: [alias[6].text, alias[7].text, alias[8].text],
-            summ: alias[10].text,
-          });
-          continue;
-        } else {
-          resultData[resultData.length-1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            programName: alias[4].text,
-            form: alias[5].text,
-            money: alias[6].text,
-            trials: [alias[7].text, alias[8].text],
-            summ: alias[10].text,
-          });
-          continue;
-        }
-      } else if (alias.length === 10) {
-        if (!(alias[6].text === 'контрактная основа' || alias[6].text === 'бюджетная основа')) {
-          resultData[resultData.length-1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            programName: alias[4].text,
-            form: alias[5].text,
-            money: resultData[resultData.length-1].trialsList[resultData[resultData.length-1].trialsList.length -1].money,
-            trials: [alias[6].text, alias[7].text],
-            summ: alias[9].text,
-          });
-          continue;
-        } else {
-          resultData[resultData.length-1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            programName: alias[4].text,
-            form: alias[5].text,
-            money: alias[6].text,
-            trials: [alias[7].text],
-            summ: alias[9].text,
-          });
-          continue;
-        }
-      } else if (alias.length === 9) {
-        if (!(alias[6].text === 'контрактная основа' || alias[6].text === 'бюджетная основа')) {
-          resultData[resultData.length-1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            programName: alias[4].text,
-            form: alias[5].text,
-            money: resultData[resultData.length-1].trialsList[resultData[resultData.length-1].trialsList.length -1].money,
-            trials: [alias[6].text],
-            summ: alias[8].text,
-          });
-          continue;
-        } else {
-          console.error('Not expect this model!');
-          continue;
-        }
-      } else if (alias.length < 9) {
-        console.error('Error i am not expected lentgh less 9');
-        continue;
-      }
-    }
+    }));
   }
+  Promise.all(promiseArr)
+    .then(res => {
+      console.log('here, start write in file');
+      const result = [];
+      for (let i = 0, len = res.length; i < len; i++) {
+        result.push(...res[i]);
+      }
 
-  console.log(JSON.stringify(resultData, null, 2));
+      for (let i in result) {
+        
+        // fs.appendFileSync('./jsonLine.json', JSON.stringify({ index: { _index: 'students' } }));
+        // fs.appendFileSync('./jsonLine.json', '\n');
+        // fs.appendFileSync('./jsonLine.json', JSON.stringify(result[i]));
+        // fs.appendFileSync('./jsonLine.json', '\n');
+
+        fs.appendFileSync('./jsonLine.json', JSON.stringify({'_index':INDEX_NAME,'_type':'_doc','_score':1,'_source': result[i]}));
+      }
+      
+      // writeFile('./result.json', JSON.stringify(result, null, 2));
+      
+      console.log('complete');
+      return true;
+    })
+    .catch(err => {
+      console.error(err);
+    });
 };
 
 main();
-

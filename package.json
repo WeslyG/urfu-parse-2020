@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "html-table-to-json": "^1.0.0",
     "mongoose": "^5.9.16",
+    "needle": "^2.5.0",
     "node-html-parser": "^1.2.20"
   },
   "devDependencies": {
