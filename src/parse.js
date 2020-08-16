@@ -2,7 +2,11 @@ import { tellMeTrue, getSex, nameLen, getNational } from './lib';
 
 const getUniversity = name => {
   const matchUniversity = name.match(/\(.*\)/);
-  if (matchUniversity) {
+  if (matchUniversity !== null) {
+    const doubleBrackets = matchUniversity[0].match(/(\(.*\)).*(\(.*\))/);
+    if (doubleBrackets !== null) {
+      return doubleBrackets[2].replace(/\)|\(/gi, '');
+    }
     return matchUniversity[0].replace(/\)|\(/gi, '');
   } else {
     return name;
