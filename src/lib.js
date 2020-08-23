@@ -37,7 +37,7 @@ export const getSex = name => {
 
 export const tellMeTrue = stringForTrue => (stringForTrue.toLowerCase() === 'да' ? true : false);
 
-export const nameLen = name => (name.split(' ').length === 3 ? true : false);
+export const nameLen = name => name.split(' ').length === 3 ? true : false;
 
 export const getNational = name => { 
   if (name.split(' ').length < 3) return 'smallNameCount';

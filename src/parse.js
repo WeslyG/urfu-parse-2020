@@ -68,31 +68,31 @@ export const parserPage = inputData => {
   const resultData = [];
   for (let item = 0, len = inputData.length; item < len; item++) {
     let alias = inputData[item].childNodes;
-    if (alias[4].text.toLowerCase() === 'да' || alias[4].text.toLowerCase() === 'нет') {
+    if (alias[4].rawText.toLowerCase() === 'да' || alias[4].rawText.toLowerCase() === 'нет') {
       if (alias.length === 12) {
         resultData.push({
           name: {
-            fullName: alias[0].text,
-            lastName: nameLen(alias[0].text) ? alias[0].text.split(' ')[0] : '',
-            firstName: nameLen(alias[0].text) ? alias[0].text.split(' ')[1] : '',
-            patronymic: nameLen(alias[0].text) ? alias[0].text.split(' ')[2] : '',
+            fullName: alias[0].rawText,
+            lastName: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[0] : '',
+            firstName: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[1] : '',
+            patronymic: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[2] : '',
           },
-          national: getNational(alias[0].text),
-          sex: nameLen(alias[0].text) ? getSex(alias[0].text) : 'Н',
-          num: parseInt(alias[1].text),
+          national: getNational(alias[0].rawText),
+          sex: nameLen(alias[0].rawText) ? getSex(alias[0].rawText) : 'Н',
+          num: parseInt(alias[1].rawText),
           trialsList: [
             {
-              status: alias[2].text,
-              type: alias[3].text,
-              access: tellMeTrue(alias[4].text),
-              direction: alias[5].text,
-              directionNumber: getDirectionNumber(alias[5].text),
-              programName: alias[6].text,
-              university: getUniversity(alias[6].text),
-              form: alias[7].text,
-              money: alias[8].text,
-              trials: [trialsParse(alias[9].text)],
-              summ: alias[11].text,
+              status: alias[2].rawText,
+              type: alias[3].rawText,
+              access: tellMeTrue(alias[4].rawText),
+              direction: alias[5].rawText,
+              directionNumber: getDirectionNumber(alias[5].rawText),
+              programName: alias[6].rawText,
+              university: getUniversity(alias[6].rawText),
+              form: alias[7].rawText,
+              money: alias[8].rawText,
+              trials: [trialsParse(alias[9].rawText)],
+              summ: alias[11].rawText,
             },
           ],
         });
@@ -100,27 +100,27 @@ export const parserPage = inputData => {
       } else if (alias.length === 13) {
         resultData.push({
           name: {
-            fullName: alias[0].text,
-            lastName: nameLen(alias[0].text) ? alias[0].text.split(' ')[0] : '',
-            firstName: nameLen(alias[0].text) ? alias[0].text.split(' ')[1] : '',
-            patronymic: nameLen(alias[0].text) ? alias[0].text.split(' ')[2] : '',
+            fullName: alias[0].rawText,
+            lastName: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[0] : '',
+            firstName: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[1] : '',
+            patronymic: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[2] : '',
           },
-          national: getNational(alias[0].text),
-          sex: nameLen(alias[0].text) ? getSex(alias[0].text) : 'Н',
-          num: parseInt(alias[1].text),
+          national: getNational(alias[0].rawText),
+          sex: nameLen(alias[0].rawText) ? getSex(alias[0].rawText) : 'Н',
+          num: parseInt(alias[1].rawText),
           trialsList: [
             {
-              status: alias[2].text,
-              type: alias[3].text,
-              access: tellMeTrue(alias[4].text),
-              direction: alias[5].text,
-              directionNumber: getDirectionNumber(alias[5].text),
-              programName: alias[6].text,
-              university: getUniversity(alias[6].text),
-              form: alias[7].text,
-              money: alias[8].text,
-              trials: [trialsParse(alias[9].text), trialsParse(alias[10].text)],
-              summ: alias[12].text,
+              status: alias[2].rawText,
+              type: alias[3].rawText,
+              access: tellMeTrue(alias[4].rawText),
+              direction: alias[5].rawText,
+              directionNumber: getDirectionNumber(alias[5].rawText),
+              programName: alias[6].rawText,
+              university: getUniversity(alias[6].rawText),
+              form: alias[7].rawText,
+              money: alias[8].rawText,
+              trials: [trialsParse(alias[9].rawText), trialsParse(alias[10].rawText)],
+              summ: alias[12].rawText,
             },
           ],
         });
@@ -128,147 +128,147 @@ export const parserPage = inputData => {
       } else if (alias.length === 14) {
         resultData.push({
           name: {
-            fullName: alias[0].text,
-            lastName: nameLen(alias[0].text) ? alias[0].text.split(' ')[0] : '',
-            firstName: nameLen(alias[0].text) ? alias[0].text.split(' ')[1] : '',
-            patronymic: nameLen(alias[0].text) ? alias[0].text.split(' ')[2] : '',
+            fullName: alias[0].rawText,
+            lastName: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[0] : '',
+            firstName: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[1] : '',
+            patronymic: nameLen(alias[0].rawText) ? alias[0].rawText.split(' ')[2] : '',
           },
-          national: getNational(alias[0].text),
-          sex: nameLen(alias[0].text) ? getSex(alias[0].text) : 'Н',
-          num: parseInt(alias[1].text),
+          national: getNational(alias[0].rawText),
+          sex: nameLen(alias[0].rawText) ? getSex(alias[0].rawText) : 'Н',
+          num: parseInt(alias[1].rawText),
           trialsList: [
             {
-              status: alias[2].text,
-              type: alias[3].text,
-              access: tellMeTrue(alias[4].text),
-              direction: alias[5].text,
-              directionNumber: getDirectionNumber(alias[5].text),
-              programName: alias[6].text,
-              university: getUniversity(alias[6].text),
-              form: alias[7].text,
-              money: alias[8].text,
+              status: alias[2].rawText,
+              type: alias[3].rawText,
+              access: tellMeTrue(alias[4].rawText),
+              direction: alias[5].rawText,
+              directionNumber: getDirectionNumber(alias[5].rawText),
+              programName: alias[6].rawText,
+              university: getUniversity(alias[6].rawText),
+              form: alias[7].rawText,
+              money: alias[8].rawText,
               trials: [
-                trialsParse(alias[9].text),
-                trialsParse(alias[10].text),
-                trialsParse(alias[11].text),
+                trialsParse(alias[9].rawText),
+                trialsParse(alias[10].rawText),
+                trialsParse(alias[11].rawText),
               ],
-              summ: alias[13].text,
+              summ: alias[13].rawText,
             },
           ],
         });
         continue;
       }
-    } else if (alias[2].text.toLowerCase() === 'да' || alias[2].text.toLowerCase() === 'нет') {
+    } else if (alias[2].rawText.toLowerCase() === 'да' || alias[2].rawText.toLowerCase() === 'нет') {
       if (alias.length === 12) {
         resultData[resultData.length - 1].trialsList.push({
-          status: alias[0].text,
-          type: alias[1].text,
-          access: tellMeTrue(alias[2].text),
-          direction: alias[3].text,
-          directionNumber: getDirectionNumber(alias[3].text),
-          programName: alias[4].text,
-          university: getUniversity(alias[4].text),
-          form: alias[5].text,
-          money: alias[6].text,
+          status: alias[0].rawText,
+          type: alias[1].rawText,
+          access: tellMeTrue(alias[2].rawText),
+          direction: alias[3].rawText,
+          directionNumber: getDirectionNumber(alias[3].rawText),
+          programName: alias[4].rawText,
+          university: getUniversity(alias[4].rawText),
+          form: alias[5].rawText,
+          money: alias[6].rawText,
           trials: [
-            trialsParse(alias[7].text),
-            trialsParse(alias[8].text),
-            trialsParse(alias[9].text),
+            trialsParse(alias[7].rawText),
+            trialsParse(alias[8].rawText),
+            trialsParse(alias[9].rawText),
           ],
-          summ: alias[11].text,
+          summ: alias[11].rawText,
         });
         continue;
       } else if (alias.length === 11) {
-        if (!(alias[6].text === 'контрактная основа' || alias[6].text === 'бюджетная основа')) {
+        if (!(alias[6].rawText === 'контрактная основа' || alias[6].rawText === 'бюджетная основа')) {
           resultData[resultData.length - 1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            directionNumber: getDirectionNumber(alias[3].text),
-            programName: alias[4].text,
-            university: getUniversity(alias[4].text),
-            form: alias[5].text,
+            status: alias[0].rawText,
+            type: alias[1].rawText,
+            access: tellMeTrue(alias[2].rawText),
+            direction: alias[3].rawText,
+            directionNumber: getDirectionNumber(alias[3].rawText),
+            programName: alias[4].rawText,
+            university: getUniversity(alias[4].rawText),
+            form: alias[5].rawText,
             money:
               resultData[resultData.length - 1].trialsList[
                 resultData[resultData.length - 1].trialsList.length - 1
               ].money,
             trials: [
-              trialsParse(alias[6].text),
-              trialsParse(alias[7].text),
-              trialsParse(alias[8].text),
+              trialsParse(alias[6].rawText),
+              trialsParse(alias[7].rawText),
+              trialsParse(alias[8].rawText),
             ],
-            summ: alias[10].text,
+            summ: alias[10].rawText,
           });
           continue;
         } else {
           resultData[resultData.length - 1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            directionNumber: getDirectionNumber(alias[3].text),
-            programName: alias[4].text,
-            university: getUniversity(alias[4].text),
-            form: alias[5].text,
-            money: alias[6].text,
-            trials: [trialsParse(alias[7].text), trialsParse(alias[8].text)],
-            summ: alias[10].text,
+            status: alias[0].rawText,
+            type: alias[1].rawText,
+            access: tellMeTrue(alias[2].rawText),
+            direction: alias[3].rawText,
+            directionNumber: getDirectionNumber(alias[3].rawText),
+            programName: alias[4].rawText,
+            university: getUniversity(alias[4].rawText),
+            form: alias[5].rawText,
+            money: alias[6].rawText,
+            trials: [trialsParse(alias[7].rawText), trialsParse(alias[8].rawText)],
+            summ: alias[10].rawText,
           });
           continue;
         }
       } else if (alias.length === 10) {
-        if (!(alias[6].text === 'контрактная основа' || alias[6].text === 'бюджетная основа')) {
+        if (!(alias[6].rawText === 'контрактная основа' || alias[6].rawText === 'бюджетная основа')) {
           resultData[resultData.length - 1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            directionNumber: getDirectionNumber(alias[3].text),
-            programName: alias[4].text,
-            university: getUniversity(alias[4].text),
-            form: alias[5].text,
+            status: alias[0].rawText,
+            type: alias[1].rawText,
+            access: tellMeTrue(alias[2].rawText),
+            direction: alias[3].rawText,
+            directionNumber: getDirectionNumber(alias[3].rawText),
+            programName: alias[4].rawText,
+            university: getUniversity(alias[4].rawText),
+            form: alias[5].rawText,
             money:
               resultData[resultData.length - 1].trialsList[
                 resultData[resultData.length - 1].trialsList.length - 1
               ].money,
-            trials: [trialsParse(alias[6].text), trialsParse(alias[7].text)],
-            summ: alias[9].text,
+            trials: [trialsParse(alias[6].rawText), trialsParse(alias[7].rawText)],
+            summ: alias[9].rawText,
           });
           continue;
         } else {
           resultData[resultData.length - 1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            directionNumber: getDirectionNumber(alias[3].text),
-            programName: alias[4].text,
-            university: getUniversity(alias[4].text),
-            form: alias[5].text,
-            money: alias[6].text,
-            trials: [trialsParse(alias[7].text)],
-            summ: alias[9].text,
+            status: alias[0].rawText,
+            type: alias[1].rawText,
+            access: tellMeTrue(alias[2].rawText),
+            direction: alias[3].rawText,
+            directionNumber: getDirectionNumber(alias[3].rawText),
+            programName: alias[4].rawText,
+            university: getUniversity(alias[4].rawText),
+            form: alias[5].rawText,
+            money: alias[6].rawText,
+            trials: [trialsParse(alias[7].rawText)],
+            summ: alias[9].rawText,
           });
           continue;
         }
       } else if (alias.length === 9) {
-        if (!(alias[6].text === 'контрактная основа' || alias[6].text === 'бюджетная основа')) {
+        if (!(alias[6].rawText === 'контрактная основа' || alias[6].rawText === 'бюджетная основа')) {
           resultData[resultData.length - 1].trialsList.push({
-            status: alias[0].text,
-            type: alias[1].text,
-            access: tellMeTrue(alias[2].text),
-            direction: alias[3].text,
-            directionNumber: getDirectionNumber(alias[3].text),
-            programName: alias[4].text,
-            university: getUniversity(alias[4].text),
-            form: alias[5].text,
+            status: alias[0].rawText,
+            type: alias[1].rawText,
+            access: tellMeTrue(alias[2].rawText),
+            direction: alias[3].rawText,
+            directionNumber: getDirectionNumber(alias[3].rawText),
+            programName: alias[4].rawText,
+            university: getUniversity(alias[4].rawText),
+            form: alias[5].rawText,
             money:
               resultData[resultData.length - 1].trialsList[
                 resultData[resultData.length - 1].trialsList.length - 1
               ].money,
-            trials: [trialsParse(alias[6].text)],
-            summ: alias[8].text,
+            trials: [trialsParse(alias[6].rawText)],
+            summ: alias[8].rawText,
           });
           continue;
         } else {

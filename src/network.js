@@ -17,7 +17,7 @@ export const request = async url => {
   });
 };
 
-export const generageUrls = numLen => {
+const generageUrls = numLen => {
   const urls = [];
   for (let i = 1; i < numLen; i++) {
     if (i === 28 || i === 30 || i === 29) {
@@ -28,11 +28,11 @@ export const generageUrls = numLen => {
   return urls;
 };
 
-export const getLinks = async data => {
-  const returnData = [];
-  for (let i = 0, len = data.length; i < len; i++) {
-    let linkPart = await request(data[i]);
-    returnData.push(`https://urfu.ru${linkPart.url}`);
-  }
-  return returnData;
+const getFinnalyLink = async linksArray => {
+  let finnalyLink = await Promise.all(linksArray.map(i => request(i)));
+  return finnalyLink.map(i => `https://urfu.ru${i.url}`);
+};
+
+export const getLinks = async numLen => {
+  return getFinnalyLink(generageUrls(numLen));
 };

@@ -6,6 +6,7 @@
       "name": "Attach Debug",
       "sourceMaps": true,
       "port": 9229,
+      "stopOnEntry": true,
       "restart": true,
       "skipFiles": [
         "<node_internals>/**"

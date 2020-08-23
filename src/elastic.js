@@ -1,5 +1,6 @@
+import fs from 'fs';
 import needle from 'needle';
-import { INDEX_NAME } from '../app';
+import { ELASTIC_INDEX, ELASTIC_URL, JSON_LINES_FILE_NAME } from '../config';
 
 const options = {
   headers: { 
@@ -8,9 +9,11 @@ const options = {
   },
 };
 
+
+// Dont use me
 export const WriteSingleDoctoElastic = async oneDoc => {
   return new Promise((resolve, reject) => {
-    needle('post', `http://localhost:9200/${INDEX_NAME}/_doc`, oneDoc, options)
+    needle('post', `http://${ELASTIC_URL}/${ELASTIC_INDEX}/_doc`, oneDoc, options)
       .then(res => {
         resolve(res.body);
         return true;
@@ -22,3 +25,21 @@ export const WriteSingleDoctoElastic = async oneDoc => {
   });
 };
 
+
+export const jsonLineFileWriter = data => {
+  data.map(i => {
+    fs.appendFileSync(`./${JSON_LINES_FILE_NAME}.json`, JSON.stringify({ index: { _index: ELASTIC_INDEX } }));
+    fs.appendFileSync(`./${JSON_LINES_FILE_NAME}.json`, '\n');
+    fs.appendFileSync(`./${JSON_LINES_FILE_NAME}.json`, JSON.stringify(i));
+    fs.appendFileSync(`./${JSON_LINES_FILE_NAME}.json`, '\n');
+  });
+};
+
+export const elasticDumpFileWriter = data => {
+  data.map(i =>
+    fs.appendFileSync(
+      `./${JSON_LINES_FILE_NAME}.json`,
+      JSON.stringify({ _index: ELASTIC_INDEX, _type: '_doc', _source: i })
+    )
+  );
+};
