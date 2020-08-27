@@ -1,30 +1,5 @@
 import fs from 'fs';
-import needle from 'needle';
-import { ELASTIC_INDEX, ELASTIC_URL, JSON_LINES_FILE_NAME } from '../config';
-
-const options = {
-  headers: { 
-    'User-Agent': 'Mozilla/5.0',
-    'Content-Type': 'application/json'
-  },
-};
-
-
-// Dont use me
-export const WriteSingleDoctoElastic = async oneDoc => {
-  return new Promise((resolve, reject) => {
-    needle('post', `http://${ELASTIC_URL}/${ELASTIC_INDEX}/_doc`, oneDoc, options)
-      .then(res => {
-        resolve(res.body);
-        return true;
-      })
-      .catch(err => {
-        console.error(err);
-        reject(err);
-      });
-  });
-};
-
+import { ELASTIC_INDEX, JSON_LINES_FILE_NAME } from '../config';
 
 export const jsonLineFileWriter = data => {
   data.map(i => {

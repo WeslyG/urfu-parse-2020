@@ -1,18 +1,7 @@
 import SexByRussianName from './sex';
 import fs from 'fs';
 
-export const readFile = async path => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf8', (err, data) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(data);
-    });
-  });
-};
-
-export const writeFile = async (path, data) => {
+export const writeFile = (path, data) => {
   return new Promise((resolve, reject) => {
     fs.writeFile(path, data, err => {
       if (err) {

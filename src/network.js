@@ -1,20 +1,8 @@
-import needle from 'needle';
+import axios from 'axios';
 
 export const request = async url => {
-  const options = {
-    headers: { 'User-Agent': 'Mozilla/5.0' },
-  };
-  return new Promise((resolve, reject) => {
-    needle('get', url, options)
-      .then(res => {
-        resolve(res.body);
-        return true;
-      })
-      .catch(err => {
-        console.error(err);
-        reject(err);
-      });
-  });
+  const req = await axios.get(url);
+  return req.data;
 };
 
 const generageUrls = numLen => {

@@ -9,10 +9,7 @@
     "start": "webpack --config webpack.dev.js",
     "lint": "eslint $npm_package_checkFiles --fix",
     "prettier": "prettier $npm_package_checkFiles --write",
-    "updep": "rm -rf package-lock.json yarn.lock npm-shrinkwrap.json && yarn && yarn upgrade && npm i",
-    "test": "DOTENV_CONFIG_PATH=./.env.test mocha",
-    "dockerBuild": "docker build -t $npm_package_dockerLogin/$npm_package_name:$npm_package_version .",
-    "dockerPush": "docker push $npm_package_dockerLogin/$npm_package_name:$npm_package_version"
+    "updep": "rm -rf package-lock.json yarn.lock npm-shrinkwrap.json && yarn && yarn upgrade && npm i"
   },
   "husky": {
     "hooks": {
@@ -23,10 +20,7 @@
   "dockerLogin": "weslyg",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
-    "html-table-to-json": "^1.0.0",
-    "mongoose": "^5.9.16",
-    "needle": "^2.5.0",
+    "axios": "^0.20.0",
     "node-html-parser": "^1.2.20"
   },
   "devDependencies": {
@@ -54,10 +48,5 @@
     "prettier": "^2.0.5",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
-  },
-  "engines": {
-    "node": "^12.16.0",
-    "npm": "^6.14.0",
-    "yarn": "^1.22.0"
   }
 }

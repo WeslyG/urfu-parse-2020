@@ -2,11 +2,11 @@ import { parse } from 'node-html-parser';
 import { parserPage } from './src/parse';
 import { upperTrials } from './src/post';
 import { getLinks, request } from './src/network';
-import { writeFile } from './src/lib';
 import { elasticDumpFileWriter } from './src/elastic';
+import fs from 'fs';
 
-// const lenAlphabet = 33;
-const lenAlphabet = 2;
+const lenAlphabet = 33;
+// const lenAlphabet = 2;
 
 const main = async () => {
   const parsedLinks = await getLinks(lenAlphabet);
@@ -21,9 +21,9 @@ const main = async () => {
   console.log('Start post data transform');
   jsonDataParser.flat().map(i => i.trials = upperTrials(i));
   
-  await writeFile('./result.json', JSON.stringify(jsonDataParser.flat(), null, 2));
-  await elasticDumpFileWriter(jsonDataParser);
+  fs.writeFileSync('result.json', JSON.stringify(jsonDataParser.flat(), null, 2));
+  elasticDumpFileWriter(jsonDataParser.flat());
   console.log('Completed');
 };
 
-setTimeout(() => main(), 10000);
+main();
